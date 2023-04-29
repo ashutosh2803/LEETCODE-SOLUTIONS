@@ -28,9 +28,9 @@ class DSU {
             if (rank[xset] == rank[yset]) {
                 rank[xset]++;
             }
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 }
 
