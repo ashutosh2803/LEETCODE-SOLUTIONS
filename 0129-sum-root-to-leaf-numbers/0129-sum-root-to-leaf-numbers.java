@@ -14,26 +14,31 @@
  * }
  */
 class Solution {
-    int sum;
-    public int sumNumbers(TreeNode root) {
-        sum=0;
-        helper(root, 0);
-        return sum;
-    }
+    int totalSum = 0; // Variable to store the total sum
     
-    public void helper(TreeNode root, int num){
-        if(root.left==null && root.right == null){
-            num = num*10 + root.val;
-            sum += num;
+    // Recursive function to calculate the sum of numbers formed by root to leaf paths
+    void sumNumbersHelper(TreeNode root, int currentSum) {
+        // Base case: if the node is a leaf node
+        if (root.left == null && root.right == null) {
+            // Add the sum formed by the path from root to leaf to the total sum
+            totalSum += currentSum * 10 + root.val;
             return;
         }
-        
-        num = num*10 + root.val;
-        if(root.left!=null){
-            helper(root.left, num);
-        }
-        if(root.right!=null){
-            helper(root.right, num);
-        }
+        // Update the current sum by appending the current node's value
+        currentSum *= 10;
+        currentSum += root.val;
+        // Recursively traverse the left and right subtrees if they are available
+        if (root.left != null)
+            sumNumbersHelper(root.left, currentSum);
+        if (root.right != null)
+            sumNumbersHelper(root.right, currentSum);
+    }
+
+    // Function to calculate the sum of numbers formed by root to leaf paths
+    public int sumNumbers(TreeNode root) {
+        // Start the recursive function with initial sum 0
+        sumNumbersHelper(root, 0);
+        // Return the total sum
+        return totalSum;
     }
 }
